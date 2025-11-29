@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ドローンと現代社会：ジャーナリズムと戦争兵器の二面性</title>
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-soft: #0b1020;
+      --accent: #3fb7ff;
+      --accent-soft: rgba(63, 183, 255, 0.18);
+      --danger: #ff5c7b;
+      --danger-soft: rgba(255, 92, 123, 0.14);
+      --safe: #5ce0a3;
+      --safe-soft: rgba(92, 224, 163, 0.16);
+      --text-main: #f9fbff;
+      --text-sub: #9da7c5;
+      --border-soft: rgba(255, 255, 255, 0.08);
+      --card-radius: 20px;
+      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.55);
+      --shadow-small: 0 10px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #141b3b 0, #050816 45%, #02030a 100%);
+      color: var(--text-main);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      scroll-behavior: smooth;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 18px 18px 64px;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(to bottom, rgba(5, 8, 22, 0.96), rgba(5, 8, 22, 0.76));
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 10px 18px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #ffffff, #3fb7ff 45%, #165a9b 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 18px rgba(63, 183, 255, 0.6);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .logo-icon::before,
+    .logo-icon::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      border: 2px solid rgba(255, 255, 255, 0.35);
+    }
+
+    .logo-icon::before {
+      width: 70%;
+      height: 70%;
+      border-style: dashed;
+    }
+
+    .logo-icon::after {
+      width: 40%;
+      height: 40%;
+    }
+
+    .logo-text-main {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--text-sub);
+    }
+
+    .logo-text-sub {
+      font-size: 12px;
+      color: var(--text-sub);
+      opacity: 0.8;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    .nav a {
+      font-size: 11px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      color: var(--text-sub);
+      border: 1px solid rgba(157, 167, 197, 0.35);
+      background: rgba(2, 5, 22, 0.7);
+      transition: all 0.18s ease-out;
+      white-space: nowrap;
+    }
+
+    .nav a:hover {
+      color: var(--text-main);
+      border-color: rgba(63, 183, 255, 0.8);
+      background: radial-gradient(circle at top left, rgba(63, 183, 255, 0.3), rgba(5, 8, 22, 0.9));
+      box-shadow: 0 0 18px rgba(63, 183, 255, 0.45);
+    }
+
+    .hero {
+      padding: 28px 0 24px;
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(260px, 1.4fr);
+      gap: 26px;
+      align-items: center;
+    }
+
+    .hero-title {
+      font-size: clamp(26px, 4vw, 32px);
+      font-weight: 800;
+      margin-bottom: 10px;
+      letter-spacing: 0.04em;
+    }
+
+    .hero-title span {
+      background: linear-gradient(120deg, #5ce0a3, #3fb7ff, #ffdf6b);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-tagline {
+      font-size: 13px;
+      color: var(--text-sub);
+      max-width: 520px;
+      margin-bottom: 14px;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(8, 12, 35, 0.85);
+      color: var(--text-sub);
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #5ce0a3;
+      box-shadow: 0 0 6px rgba(92, 224, 163, 0.7);
+    }
+
+    .badge-danger .badge-dot {
+      background: #ff5c7b;
+      box-shadow: 0 0 6px rgba(255, 92, 123, 0.8);
+    }
+
+    .highlight-box {
+      border-radius: var(--card-radius);
+      border: 1px solid rgba(63, 183, 255, 0.5);
+      background: radial-gradient(circle at top left, rgba(63, 183, 255, 0.2), rgba(8, 12, 35, 0.95));
+      padding: 14px 16px 12px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .highlight-box::before {
+      content: "";
+      position: absolute;
+      inset: -30%;
+      background-image: radial-gradient(circle at 10% 0, rgba(255, 255, 255, 0.06), transparent 55%),
+        radial-gradient(circle at 90% 100%, rgba(92, 224, 163, 0.12), transparent 55%);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .highlight-label {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(222, 235, 255, 0.9);
+      margin-bottom: 6px;
+    }
+
+    .highlight-main {
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.6;
+      position: relative;
+      z-index: 1;
+    }
+
+    .highlight-main strong {
+      color: #eaf6ff;
+    }
+
+    .hero-note {
+      font-size: 11px;
+      color: var(--text-sub);
+      opacity: 0.85;
+      margin-top: 6px;
+    }
+
+    .hero-chart {
+      border-radius: var(--card-radius);
+      border: 1px solid var(--border-soft);
+      background: radial-gradient(circle at top, rgba(63, 183, 255, 0.18), rgba(8, 12, 35, 0.96));
+      padding: 16px 16px 14px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-chart h2 {
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(221, 230, 255, 0.9);
+      margin-bottom: 10px;
+    }
+
+    .dual-bar {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      font-size: 11px;
+      margin-bottom: 12px;
+    }
+
+    .dual-bar-block {
+      border-radius: 999px;
+      padding: 8px 9px;
+      background: rgba(3, 7, 23, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .dual-bar-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 3px;
+    }
+
+    .dual-bar-label span:first-child {
+      font-weight: 600;
+      font-size: 11px;
+    }
+
+    .dual-bar-meter {
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.05);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .dual-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(92, 224, 163, 0.2), #5ce0a3);
+      transform-origin: left;
+    }
+
+    .dual-bar-fill.danger {
+      background: linear-gradient(90deg, rgba(255, 92, 123, 0.2), #ff5c7b);
+    }
+
+    .dual-bar-note {
+      font-size: 10px;
+      color: var(--text-sub);
+      opacity: 0.86;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 10px;
+      color: var(--text-sub);
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .legend-swatch {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+    }
+
+    .legend-swatch.safe {
+      background: #5ce0a3;
+      box-shadow: 0 0 8px rgba(92, 224, 163, 0.8);
+    }
+
+    .legend-swatch.danger {
+      background: #ff5c7b;
+      box-shadow: 0 0 8px rgba(255, 92, 123, 0.9);
+    }
+
+    main {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    section {
+      border-radius: var(--card-radius);
+      border: 1px solid var(--border-soft);
+      padding: 18px 18px 16px;
+      background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.03), rgba(8, 11, 29, 0.98));
+      box-shadow: var(--shadow-small);
+      position: relative;
+      overflow: hidden;
+    }
+
+    section::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background-image: radial-gradient(circle at 0 0, rgba(63, 183, 255, 0.08), transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(255, 92, 123, 0.07), transparent 55%);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .section-header {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .section-kicker {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(159, 172, 209, 0.9);
+      margin-bottom: 4px;
+    }
+
+    .section-title {
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    .section-pill {
+      font-size: 11px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: rgba(5, 8, 22, 0.9);
+      color: var(--text-sub);
+      white-space: nowrap;
+    }
+
+    .section-body {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.2fr);
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-sub);
+    }
+
+    .section-body.full {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .subheading {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: rgba(190, 200, 230, 0.9);
+      margin-bottom: 6px;
+    }
+
+    .list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      margin-top: 6px;
+    }
+
+    .list li {
+      display: grid;
+      grid-template-columns: 18px minmax(0, 1fr);
+      gap: 6px;
+      align-items: flex-start;
+    }
+
+    .bullet {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      margin-top: 7px;
+      background: radial-gradient(circle, #5ce0a3 0, #3fb7ff 60%, #050816 100%);
+      box-shadow: 0 0 8px rgba(63, 183, 255, 0.7);
+    }
+
+    .bullet.danger {
+      background: radial-gradient(circle, #ff5c7b 0, #ffb36a 60%, #050816 100%);
+      box-shadow: 0 0 8px rgba(255, 92, 123, 0.85);
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .tag {
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(2, 5, 19, 0.9);
+      color: rgba(201, 211, 238, 0.9);
+    }
+
+    .tag.safe {
+      border-color: rgba(92, 224, 163, 0.65);
+      background: var(--safe-soft);
+      color: #e7fff3;
+    }
+
+    .tag.danger {
+      border-color: rgba(255, 92, 123, 0.7);
+      background: var(--danger-soft);
+      color: #ffe5eb;
+    }
+
+    .two-column {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .mini-card {
+      border-radius: 14px;
+      padding: 10px 11px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(3, 7, 23, 0.93);
+      font-size: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .mini-label {
+      font-size: 11px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .mini-label span.badge-pill {
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: rgba(6, 11, 35, 0.95);
+      color: var(--text-sub);
+    }
+
+    .timeline {
+      margin-top: 8px;
+      border-radius: 14px;
+      border: 1px dashed rgba(255, 255, 255, 0.25);
+      padding: 10px 11px;
+      background: rgba(3, 8, 25, 0.95);
+      font-size: 12px;
+      display: grid;
+      gap: 6px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 18px minmax(0, 1fr);
+      gap: 6px;
+      align-items: flex-start;
+    }
+
+    .timeline-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      border: 2px solid rgba(63, 183, 255, 0.9);
+      margin-top: 6px;
+      position: relative;
+    }
+
+    .timeline-dot::after {
+      content: "";
+      position: absolute;
+      inset: 2px;
+      border-radius: inherit;
+      background: radial-gradient(circle, rgba(63, 183, 255, 1), rgba(63, 183, 255, 0));
+    }
+
+    .quote {
+      margin-top: 8px;
+      border-left: 3px solid rgba(63, 183, 255, 0.8);
+      padding-left: 10px;
+      font-size: 12px;
+      color: rgba(225, 235, 255, 0.92);
+    }
+
+    .quote strong {
+      color: #fdfdfd;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+      font-size: 11px;
+    }
+
+    .pill {
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(2, 5, 20, 0.95);
+      color: rgba(201, 211, 238, 0.9);
+    }
+
+    .pill.strong {
+      border-color: rgba(63, 183, 255, 0.8);
+      background: radial-gradient(circle at top, rgba(63, 183, 255, 0.4), rgba(3, 7, 23, 0.95));
+      color: #f7fbff;
+    }
+
+    .callout {
+      border-radius: var(--card-radius);
+      border: 1px solid rgba(92, 224, 163, 0.7);
+      background: radial-gradient(circle at top left, rgba(92, 224, 163, 0.22), rgba(3, 9, 22, 0.98));
+      padding: 14px 14px 12px;
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: 22px minmax(0, 1fr);
+      gap: 10px;
+      font-size: 13px;
+      color: var(--text-sub);
+    }
+
+    .callout-icon {
+      font-size: 18px;
+      margin-top: 2px;
+    }
+
+    .callout strong {
+      color: #f4fff9;
+    }
+
+    .footer-note {
+      margin-top: 12px;
+      font-size: 11px;
+      color: var(--text-sub);
+      text-align: right;
+    }
+
+        
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .section-body,
+      .section-body.full {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        padding: 14px 12px 42px;
+      }
+
+      .header-inner {
+        padding-inline: 12px;
+      }
+
+      .logo-text-main {
+        font-size: 12px;
+      }
+
+      .hero {
+        padding-top: 22px;
+      }
+
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-icon" aria-hidden="true"></div>
+        <div class="drone-rotor rotor-1"></div>
+        <div class="drone-rotor rotor-2"></div>
+        <div class="drone-rotor rotor-3"></div>
+        <div class="drone-rotor rotor-4"></div>
+        </div>
+        <div>
+          <div class="logo-text-main">DRONE &amp; SOCIETY MAP</div>
+          <div class="logo-text-sub">ドローンジャーナリズムと戦争兵器の二面性をざっくり把握するインフォグラフィック</div>
+        </div>
+      </div>
+      <nav class="nav" aria-label="ページ内ナビゲーション">
+        <a href="#sec1">ドローンジャーナリズム</a>
+        <a href="#sec2">利点とリスク</a>
+        <a href="#sec3">戦争兵器として</a>
+        <a href="#sec4">民生機の軍事転用</a>
+        <a href="#sec5">二面性の交差点</a>
+        <a href="#sec6">私の視点</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="page">
+    <section class="hero" aria-labelledby="hero-title">
+      <div>
+        <h1 id="hero-title" class="hero-title">空からの視点が<span>「記録のツール」</span>にも<span>「攻撃のツール」</span>にもなるとしたら？</h1>
+        <p class="hero-tagline">
+          同じドローン技術が、災害・環境・まちづくりを伝えるジャーナリズムにも、人やインフラを破壊する戦争兵器にもなっている——。
+          このページは、その二面性を一枚のインフォグラフィックとして整理したものです。
+        </p>
+        <div class="hero-badges">
+          <div class="badge">
+            <span class="badge-dot"></span>
+            <span>平和的な活用：災害支援・環境調査・地域づくり</span>
+          </div>
+          <div class="badge badge-danger">
+            <span class="badge-dot"></span>
+            <span>軍事利用：偵察ドローン・自爆ドローン・自律兵器</span>
+          </div>
+        </div>
+        <div class="highlight-box">
+          <div class="highlight-label">Key Insight</div>
+          <div class="highlight-main">
+            <strong>ドローンは「善い / 悪い」ではなく、私たちの選び方で意味が変わる技術</strong>。
+            だからこそ、<strong>安全と倫理のルールづくり</strong>と<strong>使い方を考える対話</strong>が欠かせない。
+          </div>
+          <p class="hero-note">※本文は、ゼミでドローンを学ぶ一学生の視点を含めて整理しています。</p>
+        </div>
+      </div>
+
+      <aside class="hero-chart" aria-label="平和利用と軍事利用のイメージ比較">
+        <h2>Drone Usage Spectrum</h2>
+        <div class="dual-bar">
+          <div class="dual-bar-block">
+            <div class="dual-bar-label">
+              <span>市民を守るための空撮</span>
+              <span>peace</span>
+            </div>
+            <div class="dual-bar-meter">
+              <div class="dual-bar-fill" style="width: 72%"></div>
+            </div>
+            <p class="dual-bar-note">災害・環境・地域の可視化など、「公共性の高い用途」。</p>
+          </div>
+          <div class="dual-bar-block">
+            <div class="dual-bar-label">
+              <span>人を攻撃するためのドローン</span>
+              <span>war</span>
+            </div>
+            <div class="dual-bar-meter">
+              <div class="dual-bar-fill danger" style="width: 84%"></div>
+            </div>
+            <p class="dual-bar-note">偵察、自爆ドローン、AI自律兵器など、軍事利用・テロ利用。</p>
+          </div>
+        </div>
+        <div class="legend">
+          <div class="legend-item">
+            <div class="legend-swatch safe"></div>
+            <span>平和的・公共的な利用</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-swatch danger"></div>
+            <span>軍事・攻撃的な利用</span>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- 1. ドローンジャーナリズムとは何か -->
+    <section id="sec1">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">Section 1</div>
+          <h2 class="section-title">ドローンジャーナリズムとは何か</h2>
+        </div>
+        <div class="section-pill">ニュース取材 × 小型無人航空機（UAV）</div>
+      </div>
+      <div class="section-body">
+        <div>
+          <div class="subheading">Definition</div>
+          <p>
+            ドローンジャーナリズムとは、<strong>小型無人航空機（UAV／ドローン）をニュース取材に活用する手法</strong>のこと。
+            従来は高コストなヘリコプター・小型機に頼っていた空撮が、<strong>低コスト＆高い機動力</strong>で身近になった。
+          </p>
+          <ul class="list" aria-label="主な活用場面">
+            <li>
+              <span class="bullet"></span>
+              <span>洪水・地震・山火事など、<strong>自然災害の被害状況</strong>の把握</span>
+            </li>
+            <li>
+              <span class="bullet"></span>
+              <span>紛争地や立ち入りが危険な地域など、<strong>現場に近づけない場所の記録</strong></span>
+            </li>
+            <li>
+              <span class="bullet"></span>
+              <span>違法伐採・大規模開発など、<strong>環境問題の広がりを空から可視化</strong></span>
+            </li>
+            <li>
+              <span class="bullet"></span>
+              <span>デモや集会、都市開発の<strong>スケール感や人の動き</strong>を俯瞰して伝える</span>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="subheading">Why Aerial View?</div>
+          <p>
+            上空からの映像は、<strong>被害や人の動きの「範囲」と「位置関係」</strong>を一目で伝えられるのが強み。
+            地図や統計だけではイメージしにくい情報を、<strong>直感的なビジュアル</strong>として届けられる。
+          </p>
+          <div class="tag-row">
+            <span class="tag safe">範囲の把握</span>
+            <span class="tag safe">位置関係の理解</span>
+            <span class="tag">現場感の共有</span>
+            <span class="tag">データジャーナリズムとの連携</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. 利点と課題 -->
+    <section id="sec2">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">Section 2</div>
+          <h2 class="section-title">ドローンジャーナリズムの利点と課題</h2>
+        </div>
+        <div class="section-pill">Safety, Cost, Ethics</div>
+      </div>
+      <div class="section-body">
+        <div>
+          <div class="subheading">メリット（利点）</div>
+          <div class="two-column">
+            <div class="mini-card">
+              <div class="mini-label">
+                記者の安全確保
+                <span class="badge-pill">Safety</span>
+              </div>
+              <p>
+                紛争地や災害直後など、<strong>人間が入ると危険な場所にドローンを飛ばす</strong>ことで、取材クルーの安全を守りながら状況を記録できる。
+              </p>
+            </div>
+            <div class="mini-card">
+              <div class="mini-label">
+                コスト＆機動力
+                <span class="badge-pill">Cost</span>
+              </div>
+              <p>
+                ヘリに比べて圧倒的に安く、小回りも利く。<strong>地方メディアや小さなニュースルーム</strong>でも空撮が可能に。
+              </p>
+            </div>
+          </div>
+          <div class="mini-card" style="margin-top: 8px;">
+            <div class="mini-label">
+              データジャーナリズムとの連携
+              <span class="badge-pill">Map × Video × Data</span>
+            </div>
+            <p>
+              ドローンの空撮画像を<strong>地図や3Dモデル、統計データ</strong>と組み合わせることで、
+              「災害リスク」「都市計画」「環境変化」などを立体的にストーリーテリングできる。
+            </p>
+          </div>
+        </div>
+        <div>
+          <div class="subheading">リスク・課題</div>
+          <ul class="list" aria-label="主な課題">
+            <li>
+              <span class="bullet danger"></span>
+              <span>
+                <strong>プライバシー侵害</strong><br />
+                高所から広く撮れる反面、<strong>個人の敷地や室内が意図せず映り込む</strong>リスクがある。
+                「プライバシー保護 vs 報道の自由」の線引きが常に問われる。
+              </span>
+            </li>
+            <li>
+              <span class="bullet danger"></span>
+              <span>
+                <strong>法規制・安全面</strong><br />
+                各国で<strong>飛行禁止区域・高度制限</strong>などのルールがあり、ジャーナリストも一般の操縦者と同様に航空法を順守する必要がある。
+              </span>
+            </li>
+            <li>
+              <span class="bullet danger"></span>
+              <span>
+                <strong>「監視社会」への懸念</strong><br />
+                空から人々を撮り続けることが、報道であると同時に<strong>監視にもなりうる</strong>という倫理的な問題。
+                「どこまで許されるか？」をメディア側が自覚的に考える必要がある。
+              </span>
+            </li>
+          </ul>
+          <div class="tag-row">
+            <span class="tag">プライバシー</span>
+            <span class="tag">航空法・安全基準</span>
+            <span class="tag danger">監視・職業倫理</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. 戦争兵器としてのドローン最前線 -->
+    <section id="sec3">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">Section 3</div>
+          <h2 class="section-title">戦争兵器としてのドローン最前線</h2>
+        </div>
+        <div class="section-pill">Ukraine War, FPV, LAWS</div>
+      </div>
+      <div class="section-body">
+        <div>
+          <div class="subheading">主な軍事ドローンのタイプ</div>
+          <div class="two-column">
+            <div class="mini-card">
+              <div class="mini-label">偵察・監視用ドローン</div>
+              <p>
+                敵の位置や部隊の動きを上空から監視し、<strong>砲撃・ミサイル攻撃の誘導</strong>に利用。
+                ロシア・ウクライナ戦争では、大量の偵察ドローンが情報収集に投入されている。
+              </p>
+            </div>
+            <div class="mini-card">
+              <div class="mini-label">攻撃用ドローン・徘徊型弾薬</div>
+              <p>
+                ミサイルや爆薬を搭載したドローンや、<strong>自らが自爆ドローン</strong>として標的に突入するタイプ（ロイタリング・ミュニション）。
+              </p>
+            </div>
+          </div>
+          <div class="mini-card" style="margin-top: 8px;">
+            <div class="mini-label">FPV（First Person View）ドローン</div>
+            <p>
+              本来はレース用などの<strong>市販FPVドローンを改造</strong>し、爆薬を搭載して戦車や塹壕をピンポイントで狙う戦術が普及。
+              小型・低コストゆえに、ウクライナ・ロシア双方で大量運用されている。
+            </p>
+          </div>
+        </div>
+        <div>
+          <div class="subheading">ウクライナ戦争に見る特徴</div>
+          <div class="timeline" aria-label="ドローン戦の特徴">
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div>
+                <strong>市販ドローンの大量運用</strong><br />
+                改造FPV機が<strong>月数千回規模</strong>で使用されているとされ、「消耗品」として使われている現実がある。
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div>
+                <strong>安価なドローン vs 高価な兵器</strong><br />
+                何十倍も高価な戦車や防空システムが、<strong>安価な小型ドローンに破壊される</strong>ケースが増加。
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div>
+                <strong>ドローン vs 対ドローンの軍拡競争</strong><br />
+                電子妨害・迎撃ドローン・ネットなど、<strong>ドローンを無力化する技術</strong>も急速に発展している。
+              </div>
+            </div>
+          </div>
+          <div class="quote">
+            <strong>AI・自律性の進展：</strong>
+            通信が途切れても<strong>AIが目標を追尾</strong>する半自律型ドローンが登場し、「致死性自律兵器システム（LAWS）」として国連などで問題視されている。
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. 民生ドローンの軍事転用と人道的問題 -->
+    <section id="sec4">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">Section 4</div>
+          <h2 class="section-title">民生ドローンの軍事転用と人道的問題</h2>
+        </div>
+        <div class="section-pill">市販ドローン × 爆薬 = 簡易兵器</div>
+      </div>
+      <div class="section-body">
+        <div>
+          <div class="subheading">なぜ「転用」が問題なのか</div>
+          <p>
+            本来は空撮など<strong>民間向けに作られたドローン</strong>が、爆弾を括り付けることで簡単に「武器」に変わってしまう。
+            しかも、
+          </p>
+          <ul class="list" aria-label="軍事転用の懸念点">
+            <li>
+              <span class="bullet danger"></span>
+              <span>比較的安価で、<strong>国家だけでなく非国家武装勢力にも拡散しやすい</strong></span>
+            </li>
+            <li>
+              <span class="bullet danger"></span>
+              <span>命中精度が高くない場合、<strong>軍事目標と民間人を区別しにくい</strong></span>
+            </li>
+          </ul>
+          <p>
+            その結果、国際人道法の<strong>区別原則・比例原則</strong>を守ることが難しくなり、民間人の被害拡大が懸念されている。
+          </p>
+        </div>
+        <div>
+          <div class="subheading">「誰でも攻撃力を持ててしまう」時代</div>
+          <p>
+            市販ドローン＋爆薬の組み合わせは、
+            <strong>専門的な軍事技術がなくても一定の攻撃力を持ててしまう</strong>点に大きな危険がある。
+          </p>
+          <div class="pill-row">
+            <span class="pill strong">便利な道具 = 社会を助ける技術</span>
+            <span class="pill strong">同時に = 誰でも攻撃できる技術</span>
+            <span class="pill">テクノロジーと人道法のギャップ</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. ドローンジャーナリズムと戦争兵器としてのドローンの交差点 -->
+    <section id="sec5">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">Section 5</div>
+          <h2 class="section-title">「伝えるツール」と「攻撃する兵器」の交差点</h2>
+        </div>
+        <div class="section-pill">Dual Use Technology</div>
+      </div>
+      <div class="section-body full">
+        <div>
+          <p>
+            同じドローン技術が、
+          </p>
+          <ul class="list" aria-label="ドローン技術の二面性">
+            <li>
+              <span class="bullet"></span>
+              <span><strong>災害や紛争の現状を市民に伝える</strong>ジャーナリズムのツールとして使われる一方で、</span>
+            </li>
+            <li>
+              <span class="bullet danger"></span>
+              <span><strong>人やインフラを破壊する戦争兵器</strong>として使われてもいる。</span>
+            </li>
+          </ul>
+          <p>
+            つまりドローンは、典型的な<strong>デュアルユース（軍民両用）技術</strong>の一つになっている。
+          </p>
+          <div class="two-column" style="margin-top: 10px;">
+            <div class="mini-card">
+              <div class="mini-label">ジャーナリズム側の倫理ガイドライン</div>
+              <ul class="list">
+                <li>
+                  <span class="bullet"></span>
+                  <span>法律や安全ルールを守ること</span>
+                </li>
+                <li>
+                  <span class="bullet"></span>
+                  <span>取材対象の<strong>プライバシー・尊厳</strong>を尊重すること</span>
+                </li>
+                <li>
+                  <span class="bullet"></span>
+                  <span>他の手段で取材できない場合に限ってドローンを使うこと</span>
+                </li>
+              </ul>
+            </div>
+            <div class="mini-card">
+              <div class="mini-label">問いかけられること</div>
+              <p>
+                同じ技術が<strong>「記録」と「攻撃」</strong>の両方に使われている現実を前提に、
+                「<strong>空からの視点</strong>をどのように使うか」を社会全体で議論し続ける必要がある。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. ドローンを学ぶ一人としての私の視点 -->
+    <section id="sec6">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">Section 6</div>
+          <h2 class="section-title">ドローンを学ぶ一人としての私の視点</h2>
+        </div>
+        <div class="section-pill">From Lab &amp; Drone Circle</div>
+      </div>
+      <div class="section-body full">
+        <div>
+          <p>
+            ゼミでドローンのサークルに入り、<strong>自分もドローンを飛ばせるようになりたい</strong>と思っている立場から、
+            この技術とどう関わるかを考えてみた。
+          </p>
+          <div class="two-column" style="margin-top: 8px;">
+            <div>
+              <div class="subheading">私が魅力を感じる使い方</div>
+              <ul class="list">
+                <li>
+                  <span class="bullet"></span>
+                  <span>災害時の被害状況を<strong>素早く把握</strong>し、支援につなげる</span>
+                </li>
+                <li>
+                  <span class="bullet"></span>
+                  <span>地域の風景や<strong>季節の移り変わり</strong>を地図と組み合わせて可視化する</span>
+                </li>
+                <li>
+                  <span class="bullet"></span>
+                  <span>環境問題やまちづくりの課題を、<strong>上からの視点</strong>でわかりやすく伝える</span>
+                </li>
+              </ul>
+              <p style="margin-top: 6px;">
+                ゼミやサークルを通して操縦技術や安全管理を学び、<strong>「見えなかったものを見えるようにする」</strong>ための道具としてドローンを使いたい。
+              </p>
+            </div>
+            <div>
+              <div class="subheading">それでも無視できない現実</div>
+              <p>
+                一方で、同じ技術が<strong>戦場で人を傷つけるために使われている</strong>現実もある。
+                市販のFPVドローンが爆薬を積んで塹壕に突っ込む映像や、ドローン攻撃に怯えて暮らす市民の姿を知ると、
+              </p>
+              <div class="quote" style="margin-top: 6px;">
+                <strong>「自分が学ぼうとしている技術が、こうした現実と地続きにある」</strong>
+                ことを無視することはできないと感じた。
+              </div>
+            </div>
+          </div>
+
+          <div class="callout">
+            <div class="callout-icon" aria-hidden="true">🌱</div>
+            <div>
+              <p><strong>これからドローンと関わる自分のスタンス</strong></p>
+              <ul class="list" style="margin-top: 4px;">
+                <li>
+                  <span class="bullet"></span>
+                  <span><strong>法律とルールをきちんと学ぶ</strong>：飛ばしてはいけない場所では飛ばさない。人や建物に不必要なリスクを与えない。</span>
+                </li>
+                <li>
+                  <span class="bullet"></span>
+                  <span><strong>プライバシーと尊厳への配慮</strong>：空からなら何を撮ってもよいとは考えず、そこに暮らす人の生活や気持ちを想像しながら撮影する。</span>
+                </li>
+                <li>
+                  <span class="bullet"></span>
+                  <span><strong>社会にとってプラスになる使い方を探す</strong>：災害支援・環境調査・地域づくり・教育など、平和的な用途での具体的な貢献を考え続ける。</span>
+                </li>
+                <li>
+                  <span class="bullet"></span>
+                  <span><strong>軍事利用や自律兵器の問題にも目を背けない</strong>：テクノロジーの受益者であると同時に、そのリスクにも責任を持つ市民として、情報を追い続ける。</span>
+                </li>
+              </ul>
+              <p style="margin-top: 6px;">
+                ドローンは「危険だからやめるべき技術」か「便利で楽しいガジェット」かの二択ではない。
+                <strong>安全と倫理を土台にしながら、社会の役に立つ使い方を探求していく</strong> —— それが、ゼミやドローンサークルで技術を学ぶ自分の結論である。
+              </p>
+            </div>
+          </div>
+
+          <p class="footer-note">
+            ※このページは、レポート内容をもとにしたインフォグラフィック風の要約です。
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
